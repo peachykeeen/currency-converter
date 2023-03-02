@@ -1,14 +1,9 @@
 import { Currency } from "../types/Currency";
-import httpClient from "../api/httpClient"
+import { get } from "../api/httpClient";
 
 export async function fetchExchangeRates(): Promise<Currency[]> {
-  const res = await httpClient.get<string>(
-    "/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt",
-    {
-      headers: {
-        "Content-type": "text/plain",
-      },
-    }
+  const res = await get(
+    "/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt"
   );
 
   return mapResToCurrencies(res);
